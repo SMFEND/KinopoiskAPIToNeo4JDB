@@ -5,13 +5,13 @@ from kinopoisk_unofficial.request.films.film_request import FilmRequest
 from kinopoisk_unofficial.request.staff.staff_request import StaffRequest
 from kinopoisk_unofficial.request.staff.person_request import PersonRequest
 
-URI = "neo4j+s://415f4fc9.databases.neo4j.io"
-AUTH = ("neo4j", "4ddeGG9nb8yWGez_RvDaQnX_cI8POcJRvvX_OUb6kF4")
+URI = "#"
+AUTH = ("#", "#")
 driver4j = GraphDatabase.driver(URI, auth=AUTH)
 
 print(driver4j.verify_connectivity())
 
-KINOPOISK_API_TOKEN = "9255944e-a805-4f9a-8fd9-5b4d4a289971"
+KINOPOISK_API_TOKEN = "#"
 api_client = KinopoiskApiClient(KINOPOISK_API_TOKEN)
 
 initialFilmID = 942396
@@ -103,7 +103,7 @@ while we_go_on:
                 with driver4j.session() as session:
                     query = (
                         "MATCH (actor:Actor {person_id: $person_id}), (film:Film {kinopoisk_id: $kinopoisk_id}) "
-                        "MERGE (actor)-[:ACTED_IN]->(film)"
+                        "MERGE (actor)-[:ACTOR]->(film)"
                     )
                     session.run(query, person_id=actorInfo.personId, kinopoisk_id=filmInfo.film.kinopoisk_id)
 
