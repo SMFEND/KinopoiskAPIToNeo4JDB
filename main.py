@@ -5,15 +5,6 @@ from kinopoisk_unofficial.request.films.film_request import FilmRequest
 from kinopoisk_unofficial.request.staff.staff_request import StaffRequest
 from kinopoisk_unofficial.request.staff.person_request import PersonRequest
 
-class Film(StructuredNode):
-    kinopoisk_id: IntegerProperty
-    title: StringProperty
-    actors: RelationshipFrom('Actor', 'ACTOR')
-
-class Actor(StructuredNode):
-    person_id: IntegerProperty
-    name: StringProperty
-
 URI = "neo4j+s://415f4fc9.databases.neo4j.io"
 AUTH = ("neo4j", "4ddeGG9nb8yWGez_RvDaQnX_cI8POcJRvvX_OUb6kF4")
 driver4j = GraphDatabase.driver(URI, auth=AUTH)
@@ -117,7 +108,7 @@ while we_go_on:
                     session.run(query, person_id=actorInfo.personId, kinopoisk_id=filmInfo.film.kinopoisk_id)
 
     # Получаем следующий фильм для цикла
-    currentFilmID += films_to_add.pop()
+    currentFilmID = films_to_add.pop()
     try:
         filmInfo = getFilmInfo(currentFilmID)
     except Exception as e:
